@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+*.pyc
+.env
+attendance.db
+.DS_Store
