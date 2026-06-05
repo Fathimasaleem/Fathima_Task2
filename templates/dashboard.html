@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 30px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            color: #222;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #222;
+            color: white;
+        }
+
+        .present {
+            color: green;
+            font-weight: bold;
+        }
+
+        .leave {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .not-marked {
+            color: red;
+            font-weight: bold;
+        }
+
+        a {
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 20px;
+        }
+
+        .summary-box {
+            margin-top: 25px;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .summary-box h2 {
+            margin-top: 0;
+        }
+
+        .summary-item {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Admin Attendance Dashboard</h1>
+
+    <p><strong>Date:</strong> {{ today }}</p>
+
+    <a href="/report?pin=1234">Monthly Report</a>
+    <a href="/download-report?pin=1234">Download CSV Report</a>
+
+    <table>
+        <tr>
+            <th>Employee</th>
+            <th>Status</th>
+            <th>Marked At</th>
+        </tr>
+
+        {% for row in rows %}
+        <tr>
+            <td>{{ row.name }}</td>
+
+            {% if row.status == "Present" %}
+                <td class="present">Present</td>
+            {% elif row.status == "Leave" %}
+                <td class="leave">Leave</td>
+            {% else %}
+                <td class="not-marked">Not Marked</td>
+            {% endif %}
+
+            <td>{{ row.marked_at if row.marked_at else "-" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="summary-box">
+        <h2>Daily Summary</h2>
+
+        <p class="summary-item">
+            <strong>Total Present Today:</strong> {{ total_present }}/{{ total_employees }}
+        </p>
+
+        <p class="summary-item">
+            <strong>Total Leave Today:</strong> {{ total_leave }}/{{ total_employees }}
+        </p>
+
+        <p class="summary-item">
+            <strong>Not Marked Today:</strong> {{ total_not_marked }}/{{ total_employees }}
+        </p>
+    </div>
+
+</body>
+</html>
