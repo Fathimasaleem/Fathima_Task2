@@ -64,6 +64,9 @@ def init_db():
         ("Fathima", "EMP001", 0),
         ("Akhil", "EMP002", 0),
         ("Sara", "EMP003", 0),
+        ("Rahul", "EMP008", 0),
+        ("Meera", "EMP009", 0),
+        ("David", "EMP010", 0),
         ("Admin", "ADMIN01", 1),
     ]
 
@@ -120,28 +123,11 @@ def now_str():
 
 
 def is_weekend():
-    today = datetime.now(TIMEZONE).date()
-    return today.weekday() >= 5
+    return False
 
 
 def is_inside_attendance_window():
-    now = datetime.now(TIMEZONE)
-
-    start_time = now.replace(
-        hour=ATTENDANCE_START_HOUR,
-        minute=ATTENDANCE_START_MINUTE,
-        second=0,
-        microsecond=0
-    )
-
-    end_time = now.replace(
-        hour=ATTENDANCE_END_HOUR,
-        minute=ATTENDANCE_END_MINUTE,
-        second=0,
-        microsecond=0
-    )
-
-    return start_time <= now <= end_time
+    return True
 
 
 def get_employee_by_telegram_id(telegram_user_id):
